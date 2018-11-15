@@ -1,4 +1,4 @@
-from configparser import SafeConfigParser
+from configparser import ConfigParser
 import codecs
 import os
 
@@ -19,12 +19,13 @@ class BaseConfig:
         self.port = self.config.get('DB', 'PORT')
         self.database = self.config.get('DB', 'DATABASE')
         self.query = self.config.get('DB', 'POST_QUERY')
-        self.uri = self.method + self.user + ':' + self.password + '@' + self.host + '/' + self.database
+        self.query_like = self.config.get('DB', 'QUERY_LIKE')
+        self.uri = str(self.method + self.user + ':' + self.password + '@' + self.host + '/' + self.database)
 
     # Get self.configuration
     def get_config(self):
         """Read ini file."""
-        parser = SafeConfigParser()
+        parser = ConfigParser()
         abspath = os.path.dirname(__file__)
         config_path = os.path.join(abspath, "config.ini")
         with codecs.open(config_path, 'r', encoding='utf-8') as f:

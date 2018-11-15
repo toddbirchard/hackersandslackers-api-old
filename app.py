@@ -1,13 +1,13 @@
 from db import get_lynx_posts
 from config_loader import config
+from previewapi import previews
 
 
 def main():
     """Fix website SEO, RIP Lynx Posts."""
-    lynx_table = get_lynx_posts(config.uri)
-    posts = lynx_table.get_posts()
-    for post in posts:
-        print(post)
+    lynx = get_lynx_posts(config)
+    posts_df = lynx.get_posts()
+    posts_df['html'] = posts_df['html'].apply(previews)
 
 
 main()
