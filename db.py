@@ -1,7 +1,8 @@
-from sqlalchemy import *
+from sqlalchemy import create_engine, text
 import pandas as pd
 
-class get_lynx_posts:
+
+class GetLynxPosts:
     """Selects records for all confirmed new hires which have yet to be onboarded."""
 
     def __init__(self, config):
@@ -15,6 +16,6 @@ class get_lynx_posts:
         """Retrieve all rows."""
         engine = create_engine(self.uri, echo=True)
         q = text(self.query)
-        lynx_df = pd.read_sql(q, engine, params={'x': self.query_like})
+        lynx_df = pd.read_sql(q, engine, params={'lynx': self.query_like})
         print(lynx_df.head(10))
         return lynx_df
