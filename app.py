@@ -7,7 +7,7 @@ def main():
     """Fix website SEO, RIP Lynx Posts."""
     lynx = GetLynxPosts(config)
     posts_df = lynx.get_posts()
-    posts_df['html'] = posts_df['html'].apply(previews)
+    posts_df['html'] = posts_df['html'].apply(previews, args=config.gcloud_endpoint)
 
 
 main()

@@ -1,5 +1,4 @@
 import requests
-from config_loader import config
 
 
 def previews(bodyhtml):
