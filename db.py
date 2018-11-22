@@ -1,4 +1,4 @@
-from sqlalchemy import *
+from sqlalchemy import create_engine, text
 import pandas as pd
 
 class get_lynx_posts:
@@ -13,8 +13,8 @@ class get_lynx_posts:
 
     def get_posts(self):
         """Retrieve all rows."""
-        engine = create_engine(self.uri, echo=True)
+        engine = create_engine(self.uri, echo=True, encoding="utf-8", convert_unicode=True)
         q = text(self.query)
-        lynx_df = pd.read_sql(q, engine, params={'x': self.query_like})
+        lynx_df = pd.read_sql(q, engine, params={'x': self.query_like}, )
         print(lynx_df.head(10))
         return lynx_df
