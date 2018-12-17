@@ -16,6 +16,9 @@ setup = (
     cmdclass={"pytest": PyTest},
     install_requires=[
         "bs4",
-        "flask"
+        "flask",
+        "configparser",
+        "pandas",
+        "flask_sqlalchemy"
     ]
 )

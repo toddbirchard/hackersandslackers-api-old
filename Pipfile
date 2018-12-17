@@ -4,12 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-sqlalchemy="*"
 pymysql="*"
 requests="*"
 configparser="*"
 pandas="*"
 flask="*"
+bs4="*"
+flask-sqlalchemy="*"
 
 [dev-packages]
 

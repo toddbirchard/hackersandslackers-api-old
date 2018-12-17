@@ -11,7 +11,7 @@ def create_app():
     with app.app_context():
 
         # Set up database to be used globally
-        db = SQLAlchemy()
+        db = SQLAlchemy(app)
 
         # Make endpoint global
         g.endpoint = app.config.gcloud_endpoint

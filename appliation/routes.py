@@ -1,4 +1,4 @@
-from flask import Blueprint, make_response, current_app, g
+from flask import Blueprint, make_response, g
 import json
 
 preview_blueprint = Blueprint('preview', __name__, template_folder='templates', static_folder='static')
@@ -10,8 +10,8 @@ headers = {
     }
 
 
-@preview_blueprint.route('/', methods=['GET'])
+@preview_blueprint.route('/', methods=['GET', 'POST'])
 def entry():
-    previews = ''
+    previews = 'test response'
     response_body = json.dumps(previews)
     return make_response(str(response_body), 200, headers)
