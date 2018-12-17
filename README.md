@@ -1,1 +1,1 @@
-# generate-embedded-link-previews
+# Embed Link Previews
