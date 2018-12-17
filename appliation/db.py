@@ -2,7 +2,7 @@ from sqlalchemy import create_engine, text
 import pandas as pd
 
 
-class GetLynxPosts:
+class GetPosts:
     """Selects records for all confirmed new hires which have yet to be onboarded."""
 
     def __init__(self, config):

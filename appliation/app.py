@@ -1,3 +1,4 @@
+import flask
 from db import GetLynxPosts
 from config_loader import config
 from previewapi import previews
