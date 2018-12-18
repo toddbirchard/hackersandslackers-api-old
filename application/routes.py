@@ -1,8 +1,8 @@
 from flask import current_app as app
-from flask import make_response, g
+from flask import make_response
 import json
-from . import db
 from . import models
+from . import redis_store
 
 
 headers = {
@@ -15,14 +15,6 @@ headers = {
 
 @app.route('/', methods=['GET', 'POST'])
 def entry():
-    u = models.User(username='john', email='john@example.com')
-    db.session.add(u)
-    db.session.commit()
-
-
-@app.teardown_appcontext
-def teardown_db(exception):
-    db = getattr(g, '_database', None)
-    if db is not None:
-        db.close()
-        return make_response(str('hi'), 200, headers)
+    readers = models.Readers.query.filter_by(username='todd').all()
+    print(readers)
+    return make_response(str('readers'), 200, headers)
