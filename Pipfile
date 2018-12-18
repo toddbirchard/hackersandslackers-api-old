@@ -11,6 +11,7 @@ pandas="*"
 flask="*"
 bs4="*"
 flask-sqlalchemy="*"
+flask_migrate="*"
 
 [dev-packages]
 

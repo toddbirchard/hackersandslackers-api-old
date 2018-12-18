@@ -1,23 +1,27 @@
-import os
 from flask import Flask, g
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+
+# set db
+db = SQLAlchemy()
 
 
 def create_app():
     """Construct the core application."""
     app = Flask(__name__, instance_relative_config=False)
-    app.config.from_object('config_loader.BaseConfig')
+    app.config.from_object('config.Config')
+
+    migrate = Migrate(app, db)
 
     with app.app_context():
+        db.init_app(app)
 
-        # Set up database to be used globally
-        db = SQLAlchemy(app)
-
-        # Make endpoint global
-        g.endpoint = app.config.gcloud_endpoint
+        # Set global contexts
+        g.endpoint = app.config['ENDPOINT']
+        g.uri = app.config['SQLALCHEMY_DATABASE_URI']
 
         # Construct the data set
         from . import routes
-        app.register_blueprint(routes.preview_blueprint)
+        from. import models
 
         return app
