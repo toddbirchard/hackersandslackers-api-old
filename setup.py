@@ -19,6 +19,7 @@ setup = (
         "flask",
         "configparser",
         "pandas",
-        "flask_sqlalchemy"
+        "flask_sqlalchemy",
+        "sqlalchemy"
     ]
 )
