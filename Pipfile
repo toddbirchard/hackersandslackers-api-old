@@ -8,10 +8,12 @@ pymysql="*"
 requests="*"
 configparser="*"
 pandas="*"
-flask="*"
+Flask="*"
 bs4="*"
-flask-sqlalchemy="*"
-flask_migrate="*"
+flask-migrate="*"
+Flask-SQLAlchemy = "*"
+flask-session="*"
+flask-redis="*"
 
 [dev-packages]
 

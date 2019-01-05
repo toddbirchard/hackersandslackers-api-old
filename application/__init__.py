@@ -22,7 +22,7 @@ def create_app():
         redis_store.uri = app.config['SQLALCHEMY_DATABASE_URI']
         redis_store.post_query = app.config['POST_QUERY']
         redis_store.post_like = app.config['QUERY_LIKE']
-        redis_store.init_app(app)
+        db = SQLAlchemy(app)
 
         # Construct the data set
         from . import routes
