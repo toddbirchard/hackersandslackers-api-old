@@ -14,6 +14,7 @@ flask-migrate="*"
 Flask-SQLAlchemy = "*"
 flask-session="*"
 flask-redis="*"
+SQLAlchemy="*"
 
 [dev-packages]
 

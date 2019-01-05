@@ -15,7 +15,9 @@ class Config:
     ENDPOINT = 'https://us-central1-hackersandslackers-204807.cloudfunctions.net/link-preview-endpoint?url='
 
     # Database
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:a9tw3rjw@35.185.3.216:3306/hackers_digitalocean_production'
+    SQLALCHEMY_DATABASE_URI = 'mysql://root:a9tw3rjw@35.185.3.216:3306/hackers_digitalocean_production'
+    SQLALCHEMY_ECHO = True
+
     POST_QUERY = 'SELECT slug, html FROM posts WHERE title LIKE :lynx AND modified != 1;'
     QUERY_LIKE = "'%%Lynx%%'"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
