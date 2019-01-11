@@ -1,6 +1,5 @@
 from flask import current_app as app
 from flask import Blueprint, render_template, g
-from flask_assets import Bundle, Environment
 import json
 from . import r
 from . import database
@@ -13,11 +12,11 @@ headers = {
 
 main_blueprint = Blueprint('main', __name__, template_folder='templates', static_folder='static', root_path='application')
 
-assets = Environment(app)
+'''assets = Environment(app)
 js = Bundle('js/bin/*.js', filters='jsmin', output='dist/packed.js')
 scss = Bundle('scss/*.scss', filters='libsass', output='dist/all.css')
 assets.register('scss_all', scss)
-assets.register('js_all', js)
+assets.register('js_all', js)'''
 
 
 
