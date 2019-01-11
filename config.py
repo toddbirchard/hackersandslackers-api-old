@@ -1,28 +1,37 @@
-"""Configure for global app."""
+import os
+from configparser import SafeConfigParser
 
 
 class Config:
-    """Build config from ini file."""
+    """Set Flask configuration vars from .ini file."""
+
+    # Read config.ini
+    configParser = SafeConfigParser()
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    configFilePath = (os.path.join(dir_path, 'config.ini'))
+    configParser.read(configFilePath)
 
     # General
-    TESTING = True
-    SECRET_KEY = b'_5#y2L"F4Q8z\n\xec]/'
-    FLASK_DEBUG = True
-    SESSION_TYPE = 'redis'
-    REDIS_URL = "redis://:FHZwGXgLlUycqiSFRA3cEUqYFCwuR85i@redis-14084.c62.us-east-1-4.ec2.cloud.redislabs.com:14084/0"
+    TESTING = configParser.get("FLASK", "TESTING")
+    SECRET_KEY = configParser.get("FLASK", "SECRET_KEY")
+    FLASK_DEBUG = configParser.get("FLASK", "FLASK_DEBUG")
+    SESSION_TYPE = configParser.get("FLASK", "SESSION_TYPE")
+    REDIS_URL = configParser.get("FLASK", "REDIS_URL")
 
     # Endpoint
-    ENDPOINT = 'https://us-central1-hackersandslackers-204807.cloudfunctions.net/link-preview-endpoint?url='
+    ENDPOINT = configParser.get("DATABASE", "SQLALCHEMY_DATABASE_URI")
 
     # Database
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:a9tw3rjw@35.185.3.216:3306/hackers_digitalocean_production'
-    SQLALCHEMY_ECHO = True
+    SQLALCHEMY_DATABASE_URI = configParser.get("DATABASE", "SQLALCHEMY_DATABASE_URI")
+    SQLALCHEMY_ECHO = configParser.get("DATABASE", "SQLALCHEMY_ECHO")
+    SQLALCHEMY_TRACK_MODIFICATIONS = configParser.get("DATABASE", "SQLALCHEMY_TRACK_MODIFICATIONS")
 
-    POST_QUERY = "SELECT slug, html FROM posts WHERE title LIKE '%%Lynx%%'"
-    QUERY_LIKE = "'%%Lynx%%'"
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    # Queries
+    POST_QUERY = configParser.get("QUERIES", "POST_QUERY")
+    QUERY_LIKE = configParser.get("QUERIES", "QUERY_LIKE")
+
 
     # Apisentris
-    ACCESS_TOKEN = 'bZwtWlISFmwd08xQJXrQAQ'
-    CLIENT_ID = 103000
-    HEADER_CONTENT_TYPE = 'application/json'
+    ACCESS_TOKEN = configParser.get("APISENTRIS", "ACCESS_TOKEN")
+    CLIENT_ID = configParser.get("APISENTRIS", "CLIENT_ID")
+    HEADER_CONTENT_TYPE = configParser.get("APISENTRIS", "HEADER_CONTENT_TYPE")

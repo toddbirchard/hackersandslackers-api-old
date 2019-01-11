@@ -2,8 +2,9 @@ from flask import current_app as app
 from flask import Blueprint, render_template, g
 from flask_assets import Bundle, Environment
 import json
-from . import redis_store
+from . import r
 from . import db
+from preview import make_preview
 
 headers = {
         'Access-Control-Allow-Origin': '*',
@@ -22,13 +23,12 @@ assets.register('js_all', js)
 
 @main_blueprint.route('/', methods=['GET', 'POST'])
 def entry():
-    # readers = models.Readers.query.filter_by(username='john').all()
     # base_url = redis_store.get('ENDPOINT')
-    uri = redis_store.get('uri').decode('utf-8')
-    query = redis_store.get('query').decode('utf-8')
-    querylike = redis_store.get('querylike').decode('utf-8')
-    print('uri = ', uri)
+    uri = r.get('uri').decode('utf-8')
+    query = r.get('query').decode('utf-8')
+    querylike = r.get('querylike').decode('utf-8')
     database = db.LynxData(uri, query, querylike)
-    print('database.uri = ', database.uri)
-    records = database.records
-    return render_template('layout.html', results=records)
+    posts = database.records
+    for post in posts:
+        make_preview(post)
+    return render_template('layout.html', results=posts)

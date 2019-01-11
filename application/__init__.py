@@ -2,29 +2,24 @@ from flask import Flask
 import sqlalchemy
 from flask_session import Session
 from flask_redis import FlaskRedis
-from redis import StrictRedis
 
-redis_store = FlaskRedis()
+r = FlaskRedis()
 
 def create_app():
     """Construct the core application."""
     app = Flask(__name__, instance_relative_config=False)
     app.config.from_object('config.Config')
-    # redis_store = FlaskRedis(app, strict=False)
-
-
 
     with app.app_context():
-        redis_store.init_app(app)
-        # Set global contexts
-        endpoint = app.config['ENDPOINT']
+        # Set Global Session Variables
+        r.init_app(app, charset="utf-8", decode_responses=True)
+        r.set('endpoint', app.config['ENDPOINT'])
+        r.set('uri', app.config['SQLALCHEMY_DATABASE_URI'])
+        r.set('query', app.config['POST_QUERY'])
+        r.set('querylike', app.config['QUERY_LIKE'])
 
-        redis_store.set('endpoint', endpoint)
-        redis_store.set('uri', str(app.config['SQLALCHEMY_DATABASE_URI']).encode('utf-8'))
-        redis_store.set('query', str(app.config['POST_QUERY']).encode('utf-8'))
-        redis_store.set('querylike', str(app.config['QUERY_LIKE']).encode('utf-8'))
-
-
+        # HTML structure for new Lynx posts
+        from . import  preview
 
         # Construct the data set
         from . import routes
