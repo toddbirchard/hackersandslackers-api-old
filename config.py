@@ -19,7 +19,7 @@ class Config:
     REDIS_URL = configParser.get("FLASK", "REDIS_URL")
 
     # Endpoint
-    ENDPOINT = configParser.get("DATABASE", "SQLALCHEMY_DATABASE_URI")
+    ENDPOINT = configParser.get("ENDPOINTS", "PREVIEW")
 
     # Database
     SQLALCHEMY_DATABASE_URI = configParser.get("DATABASE", "SQLALCHEMY_DATABASE_URI")

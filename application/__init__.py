@@ -16,7 +16,7 @@ def create_app():
         r.set('endpoint', app.config['ENDPOINT'])
         r.set('uri', app.config['SQLALCHEMY_DATABASE_URI'])
         r.set('query', app.config['POST_QUERY'])
-        r.set('querylike', app.config['QUERY_LIKE'])
+        r.set('query_like', app.config['QUERY_LIKE'])
 
         # HTML structure for new Lynx posts
         from . import  preview

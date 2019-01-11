@@ -4,7 +4,7 @@ from flask_assets import Bundle, Environment
 import json
 from . import r
 from . import db
-from preview import make_preview
+from . import preview
 
 headers = {
         'Access-Control-Allow-Origin': '*',
@@ -24,11 +24,14 @@ assets.register('js_all', js)
 @main_blueprint.route('/', methods=['GET', 'POST'])
 def entry():
     # base_url = redis_store.get('ENDPOINT')
-    uri = r.get('uri').decode('utf-8')
-    query = r.get('query').decode('utf-8')
-    querylike = r.get('querylike').decode('utf-8')
-    database = db.LynxData(uri, query, querylike)
+    uri = r.get('uri')
+    query = r.get('query')
+    query_like = r.get('query_like')
+    print('uri', uri)
+    print('query', query)
+    database = db.LynxData(uri, query, query_like)
     posts = database.records
     for post in posts:
-        make_preview(post)
+        preview_html = preview.make_preview(post)
+        print('postpreview = ', preview_html)
     return render_template('layout.html', results=posts)

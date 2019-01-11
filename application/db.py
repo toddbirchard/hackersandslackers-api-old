@@ -7,25 +7,25 @@ class LynxData:
     """Query the WeWork Database for Employee & Location information."""
 
     # Set Variables
-    def __init__(self, uri, query, querylike):
+    def __init__(self, uri, query, query_like):
         self.uri = uri
         self.query = query
-        self.querylike = querylike
-        self.records = self.fetch_records(self.uri, self.query, self.querylike)
+        self.query_like = query_like
+        self.records = self.fetch_records(self.uri, self.query, self.query_like)
 
     @classmethod
-    def fetch_records(self, uri, query, querylike):
-        """Agnostic function which will run whichever query is passed."""
-        # Set up engine
+    def fetch_records(self, uri, query, query_like):
+        """Run any query which is passed."""
         rows = []
+        # Set up engine
+        engine = create_engine(uri, echo=True, encoding='utf-8')
         Base = declarative_base()
-        engine = create_engine(uri, echo=True, strategy='threadlocal')
         Base.metadata.create_all(engine)
         # Manage Connection
         with engine.connect() as conn:
             try:
-                res = conn.execution_options(stream_results=True).execute(query)  # .construct_params()
-                for row in res:
+                results = conn.execution_options(stream_results=True).execute(query)  # .construct_params()
+                for row in results:
                     rows.append(dict(row))
                     print(dict(row))
                 return rows
