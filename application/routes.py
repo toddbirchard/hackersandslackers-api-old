@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, g
 from flask_assets import Bundle, Environment
 import json
 from . import r
-from . import db
+from . import database
 from . import preview
 
 headers = {
@@ -29,8 +29,8 @@ def entry():
     query_like = r.get('query_like')
     print('uri', uri)
     print('query', query)
-    database = db.LynxData(uri, query, query_like)
-    posts = database.records
+    post_database = database.LynxData(uri, query, query_like)
+    posts = post_database.records
     for post in posts:
         preview_html = preview.make_preview(post)
         print('postpreview = ', preview_html)

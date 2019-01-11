@@ -7,18 +7,16 @@ name = "pypi"
 pymysql="*"
 requests="*"
 configparser="*"
-pandas="*"
 Flask="*"
 bs4="*"
 flask-migrate="*"
 Flask-SQLAlchemy = "*"
 flask-session="*"
 flask-redis="*"
-flask_assets="*"
 sqlalchemy="*"
-libsass="*"
 
 [dev-packages]
+libsass="*"
 
 [requires]
 python_version = "3.7.1"

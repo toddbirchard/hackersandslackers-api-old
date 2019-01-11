@@ -1,9 +1,12 @@
 from flask import Flask
 import sqlalchemy
+from flask_sqlalchemy import Model, SQLAlchemy
 from flask_session import Session
 from flask_redis import FlaskRedis
 
 r = FlaskRedis()
+db = SQLAlchemy()
+
 
 def create_app():
     """Construct the core application."""
@@ -17,6 +20,9 @@ def create_app():
         r.set('uri', app.config['SQLALCHEMY_DATABASE_URI'])
         r.set('query', app.config['POST_QUERY'])
         r.set('query_like', app.config['QUERY_LIKE'])
+
+        # Initialize Global db
+        db.init_app(app)
 
         # HTML structure for new Lynx posts
         from . import  preview

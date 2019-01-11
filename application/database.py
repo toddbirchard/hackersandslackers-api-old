@@ -18,7 +18,7 @@ class LynxData:
         """Run any query which is passed."""
         rows = []
         # Set up engine
-        engine = create_engine(uri, echo=True, encoding='utf-8')
+        engine = create_engine(uri, echo=True)
         Base = declarative_base()
         Base.metadata.create_all(engine)
         # Manage Connection
