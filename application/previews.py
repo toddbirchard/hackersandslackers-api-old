@@ -28,7 +28,9 @@ def make_preview(link):
             <div class="link-preview-image"><img src="' + str(link['image']) + '"></div> \
             <div class="detail-stack"> \
             <h4 class="title-desktop">' + str(link['title']) + '</h4> \
-            <p>' + str(link['description']) + '</p> \ <span class="url-info"><i class="far fa-link"></i>' + str(link['url']) + '</span> \
+            <p>' + str(link['description']) + '</p> \
+            <span class="url-info"> \
+            <i class="far fa-link"></i>' + str(link['url']) + '</span> \
             <h4 class="title-mobile">' + str(link['url']) + '</h4> \
             </div></div></a></div>'
         return preview_html

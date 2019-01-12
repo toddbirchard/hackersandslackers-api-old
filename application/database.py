@@ -37,7 +37,7 @@ class LynxData:
         # Manage Connection
         with engine.connect() as conn:
             try:
-                sql = select([posts.c.slug, posts.c.html]).where( and_(posts.c.title.like('%Lynx%'), posts.c.modified == None)).limit(10)
+                sql = select([posts.c.slug, posts.c.html]).where( and_(posts.c.title.like('%Lynx%'), posts.c.modified == None)).limit(30)
                 results = conn.execution_options(stream_results=True).execute(sql)
                 for row in results:
                     rows.append(dict(row))
