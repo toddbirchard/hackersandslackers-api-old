@@ -16,7 +16,6 @@ Flask-redis="*"
 sqlalchemy="*"
 
 [dev-packages]
-libsass="*"
 
 [requires]
-python_version = "3.7.1"
+python_version = "3.7.2"
