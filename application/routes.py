@@ -32,6 +32,9 @@ def entry():
     for post in posts:
         url = domain + post['slug']
         link_embeds = previews.get_links(url)
+        page_html = ''.join(str(x) for x in link_embeds)
+        print('page_html = ', page_html)
+        post_database.update_post(uri, post['slug'], page_html)
         # preview_html = previews.make_preview(post)
         # print('postpreview = ', preview_html)
     return render_template('layout.html')

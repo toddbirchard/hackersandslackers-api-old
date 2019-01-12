@@ -4,7 +4,7 @@ from sqlalchemy.ext.declarative import declarative_base
 import json
 
 class LynxData:
-    """Query the WeWork Database for Employee & Location information."""
+    """Get all fresh Lynx posts, or update them with new HTML."""
 
     # Set Variables
     def __init__(self, uri, query, query_like):
@@ -41,22 +41,24 @@ class LynxData:
                 results = conn.execution_options(stream_results=True).execute(sql)
                 for row in results:
                     rows.append(dict(row))
-                return rows
             except KeyError:
                 print('something broke. sorry.')
                 raise
             finally:
                 conn.close()
+                return rows
 
-    @classmethod
-    def update_post(self, slug, html):
+    @staticmethod
+    def update_post(uri, slug, html):
         """Update post with new previews."""
-        engine = self.open_connection(self.uri)
+        engine = create_engine(uri, echo=True, strategy='threadlocal', encoding="utf-8", convert_unicode=True)
+        Base = declarative_base()
+        Base.metadata.create_all(engine)
         META_DATA = MetaData(bind=engine, reflect=True)
         posts = META_DATA.tables['posts']
         with engine.connect() as conn:
             try:
-                sql = update(posts).where(posts.c.slug == slug).values(html=html)
+                sql = update(posts).where(posts.c.slug == slug).values(html=html, modified=1)
                 results = conn.execution_options(stream_results=True).execute(sql)
                 return results
             except KeyError:
