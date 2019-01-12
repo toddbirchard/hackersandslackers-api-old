@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, g
 import json
 from . import r
 from . import database
-from . import preview
+from . import previews
 
 headers = {
         'Access-Control-Allow-Origin': '*',
@@ -26,9 +26,12 @@ def entry():
     uri = r.get('uri')
     query = r.get('query')
     query_like = r.get('query_like')
+    domain = r.get('domain')
     post_database = database.LynxData(uri, query, query_like)
     posts = post_database.records
     for post in posts:
-        preview_html = preview.make_preview(post)
-        print('postpreview = ', preview_html)
-    return render_template('layout.html', results=posts)
+        url = domain + post['slug']
+        link_embeds = previews.get_links(url)
+        # preview_html = previews.make_preview(post)
+        # print('postpreview = ', preview_html)
+    return render_template('layout.html')

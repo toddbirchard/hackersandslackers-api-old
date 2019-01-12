@@ -20,6 +20,7 @@ class Config:
 
     # Endpoint
     ENDPOINT = configParser.get("ENDPOINTS", "PREVIEW")
+    DOMAIN = configParser.get("ENDPOINTS", "DOMAIN")
 
     # Database
     SQLALCHEMY_DATABASE_URI = configParser.get("DATABASE", "SQLALCHEMY_DATABASE_URI")

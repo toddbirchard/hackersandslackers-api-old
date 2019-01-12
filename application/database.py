@@ -1,7 +1,7 @@
-from sqlalchemy import create_engine
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import create_engine, select, text, and_, update
+from sqlalchemy import Column, Integer, String, MetaData
 from sqlalchemy.ext.declarative import declarative_base
-
+import json
 
 class LynxData:
     """Query the WeWork Database for Employee & Location information."""
@@ -14,21 +14,51 @@ class LynxData:
         self.records = self.fetch_records(self.uri, self.query, self.query_like)
 
     @classmethod
+    def open_connection(self, uri):
+        """Open db connection."""
+        engine = create_engine(uri, echo=True, strategy='threadlocal', encoding="utf-8", convert_unicode=True)
+        Base = declarative_base()
+        Base.metadata.create_all(engine)
+        return engine
+
+    @classmethod
     def fetch_records(self, uri, query, query_like):
         """Run any query which is passed."""
+        engine = self.open_connection(uri)
+        META_DATA = MetaData(bind=engine, reflect=True)
+        posts = META_DATA.tables['posts']
         rows = []
         # Set up engine
-        engine = create_engine(uri, echo=True, strategy='threadlocal')
+        engine = create_engine(uri, echo=False, strategy='threadlocal', encoding="utf-8", convert_unicode=True)
+        META_DATA = MetaData(bind=engine, reflect=True)
+        posts = META_DATA.tables['posts']
         Base = declarative_base()
         Base.metadata.create_all(engine)
         # Manage Connection
         with engine.connect() as conn:
             try:
-                results = conn.execution_options(stream_results=True).execute(query)
+                sql = select([posts.c.slug, posts.c.html]).where( and_(posts.c.title.like('%Lynx%'), posts.c.modified == None)).limit(10)
+                results = conn.execution_options(stream_results=True).execute(sql)
                 for row in results:
                     rows.append(dict(row))
-                    print(dict(row))
                 return rows
+            except KeyError:
+                print('something broke. sorry.')
+                raise
+            finally:
+                conn.close()
+
+    @classmethod
+    def update_post(self, slug, html):
+        """Update post with new previews."""
+        engine = self.open_connection(self.uri)
+        META_DATA = MetaData(bind=engine, reflect=True)
+        posts = META_DATA.tables['posts']
+        with engine.connect() as conn:
+            try:
+                sql = update(posts).where(posts.c.slug == slug).values(html=html)
+                results = conn.execution_options(stream_results=True).execute(sql)
+                return results
             except KeyError:
                 print('something broke. sorry.')
                 raise

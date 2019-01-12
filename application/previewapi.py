@@ -1,8 +1,8 @@
 import requests
-from flask import g
+from flask import r
 
 
 def previews(bodyhtml):
     """Replace HTML with new embeds."""
-    r = requests.post(g.gcloud_endpoint, data=bodyhtml)
-    print(r.json())
+    req = requests.post(r.get('endpoint'), data=bodyhtml)
+    print(req.json())

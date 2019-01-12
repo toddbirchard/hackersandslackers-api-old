@@ -18,6 +18,7 @@ def create_app():
         r.init_app(app, charset="utf-8", decode_responses=True)
         r.set('endpoint', app.config['ENDPOINT'])
         r.set('uri', app.config['SQLALCHEMY_DATABASE_URI'])
+        r.set('domain', app.config['DOMAIN'])
         r.set('query', app.config['POST_QUERY'])
         r.set('query_like', app.config['QUERY_LIKE'])
 
@@ -25,7 +26,7 @@ def create_app():
         db.init_app(app)
 
         # HTML structure for new Lynx posts
-        from . import  preview
+        from . import previews
 
         # Construct the data set
         from . import routes
