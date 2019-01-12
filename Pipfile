@@ -9,10 +9,10 @@ requests="*"
 configparser="*"
 Flask="*"
 bs4="*"
-flask-migrate="*"
+Flask-migrate="*"
 Flask-SQLAlchemy = "*"
-flask-session="*"
-flask-redis="*"
+Flask-session="*"
+Flask-redis="*"
 sqlalchemy="*"
 
 [dev-packages]

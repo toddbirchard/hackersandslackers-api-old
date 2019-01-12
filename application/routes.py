@@ -22,12 +22,10 @@ assets.register('js_all', js)'''
 
 @main_blueprint.route('/', methods=['GET', 'POST'])
 def entry():
-    # base_url = redis_store.get('ENDPOINT')
+    """App Entry Point."""
     uri = r.get('uri')
     query = r.get('query')
     query_like = r.get('query_like')
-    print('uri', uri)
-    print('query', query)
     post_database = database.LynxData(uri, query, query_like)
     posts = post_database.records
     for post in posts:

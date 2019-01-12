@@ -18,13 +18,13 @@ class LynxData:
         """Run any query which is passed."""
         rows = []
         # Set up engine
-        engine = create_engine(uri, echo=True)
+        engine = create_engine(uri, echo=True, strategy='threadlocal')
         Base = declarative_base()
         Base.metadata.create_all(engine)
         # Manage Connection
         with engine.connect() as conn:
             try:
-                results = conn.execution_options(stream_results=True).execute(query)  # .construct_params()
+                results = conn.execution_options(stream_results=True).execute(query)
                 for row in results:
                     rows.append(dict(row))
                     print(dict(row))
