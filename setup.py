@@ -4,16 +4,14 @@ with open("README", 'r') as f:
     long_description = f.read()
 
 setup = (
-    name='Embedded Link Previews',
-    version='1.0',
-    description='Generates embedded link previews on all pages of an existing site.',
+    name='Hackers and Slackers API',
+    version='0.0.1',
+    description='Standalone API to handle account creation, auto-publish to medium, and sitewide link embeds.',
     long_description=long_description,
     author='Todd Birchard',
     author_email='toddbirchard@gmail.com',
-    url="https://github.com/toddbirchard/link-embedder",
+    url="https://github.com/toddbirchard/hackersandslackers-api",
     packages=['application'],
-    tests_require=["pytest"],
-    cmdclass={"pytest": PyTest},
     install_requires=[
         "bs4",
         "flask",

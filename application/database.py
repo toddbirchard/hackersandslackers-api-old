@@ -1,43 +1,45 @@
 from sqlalchemy import create_engine, select, text, and_, update
 from sqlalchemy import Column, Integer, String, MetaData
 from sqlalchemy.ext.declarative import declarative_base
-import json
+from sqlalchemy.orm import sessionmaker
+from . import r
+
 
 class LynxData:
     """Get all fresh Lynx posts, or update them with new HTML."""
 
-    # Set Variables
-    def __init__(self, uri, query, query_like):
-        self.uri = uri
-        self.query = query
-        self.query_like = query_like
-        self.records = self.fetch_records(self.uri, self.query, self.query_like)
+    session = None
+
+    __uri = r.get('uri')
+    __query = r.get('query')
+    __query_like = r.get('query_like')
+    __engine = create_engine(__uri, echo=True, strategy='threadlocal', encoding="utf-8", convert_unicode=True)
 
     @classmethod
-    def open_connection(self, uri):
+    def open_session(cls):
         """Open db connection."""
-        engine = create_engine(uri, echo=True, strategy='threadlocal', encoding="utf-8", convert_unicode=True)
         Base = declarative_base()
-        Base.metadata.create_all(engine)
-        return engine
+        Base.metadata.create_all(cls.__engine)
+        Session = sessionmaker(bind=cls.__engine)
+        session = Session()
+        cls.session = session
+        return session
 
     @classmethod
-    def fetch_records(self, uri, query, query_like):
+    def fetch_records(cls, uri, query, query_like):
         """Run any query which is passed."""
-        engine = self.open_connection(uri)
+        engine = cls.open_session()
         META_DATA = MetaData(bind=engine, reflect=True)
         posts = META_DATA.tables['posts']
         rows = []
         # Set up engine
-        engine = create_engine(uri, echo=False, strategy='threadlocal', encoding="utf-8", convert_unicode=True)
-        META_DATA = MetaData(bind=engine, reflect=True)
-        posts = META_DATA.tables['posts']
+        # engine = create_engine(uri, echo=False, strategy='threadlocal', encoding="utf-8", convert_unicode=True)
         Base = declarative_base()
         Base.metadata.create_all(engine)
         # Manage Connection
         with engine.connect() as conn:
             try:
-                sql = select([posts.c.slug, posts.c.html]).where( and_(posts.c.title.like('%Lynx%'), posts.c.modified == None)).limit(30)
+                sql = select([posts.c.slug, posts.c.html]).where(and_(posts.c.title.like('%Lynx%'), posts.c.modified is None)).limit(30)
                 results = conn.execution_options(stream_results=True).execute(sql)
                 for row in results:
                     rows.append(dict(row))
@@ -48,15 +50,14 @@ class LynxData:
                 conn.close()
                 return rows
 
-    @staticmethod
-    def update_post(uri, slug, html):
+    @classmethod
+    def update_post(cls, slug, html):
         """Update post with new previews."""
-        engine = create_engine(uri, echo=True, strategy='threadlocal', encoding="utf-8", convert_unicode=True)
         Base = declarative_base()
-        Base.metadata.create_all(engine)
-        META_DATA = MetaData(bind=engine, reflect=True)
+        Base.metadata.create_all(cls.engine)
+        META_DATA = MetaData(bind=cls.engine, reflect=True)
         posts = META_DATA.tables['posts']
-        with engine.connect() as conn:
+        with cls.engine.connect() as conn:
             try:
                 sql = update(posts).where(posts.c.slug == slug).values(html=html, modified=1)
                 results = conn.execution_options(stream_results=True).execute(sql)

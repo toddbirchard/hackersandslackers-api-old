@@ -2,7 +2,13 @@ import json
 import sys
 import requests
 from bs4 import BeautifulSoup
-from . import r
+
+
+
+def previews(bodyhtml):
+    """Replace HTML with new embeds."""
+    req = requests.post(r.get('endpoint'), data=bodyhtml)
+    print(req.json())
 
 
 def get_json(link):

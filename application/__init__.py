@@ -1,7 +1,6 @@
 from flask import Flask
 import sqlalchemy
 from flask_sqlalchemy import Model, SQLAlchemy
-from flask_session import Session
 from flask_redis import FlaskRedis
 
 r = FlaskRedis()
@@ -32,10 +31,9 @@ def create_app():
         # Initialize Global db
         db.init_app(app)
 
-        # HTML structure for new Lynx posts
-        from . import previews
-
         # Construct the data set
-        from . import routes
+        from . import account
+        from . import syndication
+        from . import links
 
         return app
