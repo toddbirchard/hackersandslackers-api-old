@@ -76,3 +76,19 @@ def publish_post():
     req = requests.post(url=endpoint, headers=headers, data=json.dumps(data))
     response = req.text
     return make_response(response, 200)
+
+@app.route('/account/create', methods=['POST'])
+def create():
+    """Prepare  a new user account for the subscriber."""
+    post_data = request.data
+    data_dict = json.loads(post_data)
+    username =data_dict['username']
+    email = data_dict['email']
+    grav = get_gravatar(email)   # Derive Gravatar from Email
+    # Insert DB record
+    new_account = UserAccounts(username, email, grav)
+    new_account.create_account
+    # Welcome via Email
+    welcome_email(email)
+
+    return new_account.create_account

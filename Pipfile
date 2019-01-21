@@ -16,6 +16,10 @@ sqlalchemy="*"
 flask_redis="*"
 gunicorn="*"
 pytest="*"
+sendgrid = "*"
+mixpanel = "*"
+python-http-client = "*"
+libgravatar = "*"
 
 [dev-packages]
 
