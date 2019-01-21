@@ -1,4 +1,4 @@
-# Embed Link Previews
+# Hackers and Slackers API
 
 ![Python](https://img.shields.io/badge/Python-3.7.2-blue.svg?logo=python&longCache=true&logoColor=white&colorB=23a8e2&style=flat-square&colorA=36363e)
 ![Flask](https://img.shields.io/badge/Flask-1.0.2-blue.svg?longCache=true&logo=flask&style=flat-square&logoColor=white&colorB=23a8e2&colorA=36363e)
