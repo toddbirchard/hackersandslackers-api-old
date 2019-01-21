@@ -1,6 +1,7 @@
 # Hackers and Slackers API
 
 ![Python](https://img.shields.io/badge/Python-3.7.2-blue.svg?logo=python&longCache=true&logoColor=white&colorB=23a8e2&style=flat-square&colorA=36363e)
+![Pandas](https://img.shields.io/badge/Pandas-0.23.0-blue.svg?logo=python&longCache=true&logoColor=white&colorB=23a8e2&style=flat-square&colorA=36363e)
 ![Flask](https://img.shields.io/badge/Flask-1.0.2-blue.svg?longCache=true&logo=flask&style=flat-square&logoColor=white&colorB=23a8e2&colorA=36363e)
 ![Flask-Redis](https://img.shields.io/badge/Flask--Redis-0.3.0-blue.svg?longCache=true&logo=redis&style=flat-square&logoColor=white&colorB=D82C20&colorA=36363e)
 ![BeautifulSoup](https://img.shields.io/badge/Beautifulsoup4-4.6.3-blue.svg?longCache=true&logo=delicious&longCache=true&style=flat-square&logoColor=white&colorB=23a8e2&colorA=36363e)
