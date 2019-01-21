@@ -1,12 +1,12 @@
 import os
-from configparser import SafeConfigParser
+from configparser import ConfigParser
 
 
 class Config:
     """Set Flask configuration vars from .ini file."""
 
     # Read config.ini
-    configParser = SafeConfigParser()
+    configParser = ConfigParser()
     dir_path = os.path.dirname(os.path.realpath(__file__))
     configFilePath = (os.path.join(dir_path, 'config.ini'))
     configParser.read(configFilePath)
@@ -16,7 +16,7 @@ class Config:
     SECRET_KEY = configParser.get("FLASK", "SECRET_KEY")
     FLASK_DEBUG = configParser.get("FLASK", "FLASK_DEBUG")
     SESSION_TYPE = configParser.get("FLASK", "SESSION_TYPE")
-    REDIS_URL = configParser.get("FLASK", "REDIS_URL")
+    # REDIS_URL = configParser.get("FLASK", "REDIS_URL")
 
     # Endpoint
     ENDPOINT = configParser.get("ENDPOINTS", "PREVIEW")
@@ -36,3 +36,11 @@ class Config:
     ACCESS_TOKEN = configParser.get("APISENTRIS", "ACCESS_TOKEN")
     CLIENT_ID = configParser.get("APISENTRIS", "CLIENT_ID")
     HEADER_CONTENT_TYPE = configParser.get("APISENTRIS", "HEADER_CONTENT_TYPE")
+
+    # Ghost to Medium
+    TOKEN = os.environ['TOKEN']
+    CLIENT_ID = os.environ['CLIENT_ID']
+    CLIENT_SECRET = os.environ['CLIENT_SECRET']
+    PUBLICATION = os.environ['PUBLICATION']
+    REDIS_URL = os.environ['REDIS_URL']
+    ME_ENDPOINT = os.environ['ME_ENDPOINT']

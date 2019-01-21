@@ -22,6 +22,13 @@ def create_app():
         r.set('query', app.config['POST_QUERY'])
         r.set('query_like', app.config['QUERY_LIKE'])
 
+        # Set global contexts
+        r.set('token', app.config['TOKEN'])
+        r.set('clientid', app.config['CLIENT_ID'])
+        r.set('clientsecret', app.config['CLIENT_SECRET'])
+        r.set('publication', app.config['PUBLICATION'])
+        r.set('medium_endpoint_me', app.config['ME_ENDPOINT'])
+
         # Initialize Global db
         db.init_app(app)
 
@@ -30,6 +37,5 @@ def create_app():
 
         # Construct the data set
         from . import routes
-        app.register_blueprint(routes.main_blueprint)
 
         return app
