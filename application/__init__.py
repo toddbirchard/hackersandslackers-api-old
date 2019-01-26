@@ -37,8 +37,9 @@ def create_app():
         db.init_app(app)
 
         # Construct the data set
-        # from . import account
-        # from . import syndication
+        from . import models
+        from . import account
+        from . import syndication
         # from . import links
         from . import analytics
 

@@ -2,9 +2,8 @@ import json
 import requests
 from flask import current_app as app
 from flask import render_template, make_response, request
-from gravatar import get_gravatar
 from . import r
-from . import database
+from . import db
 
 
 @app.route('/medium/me', methods=['GET'])

@@ -1,11 +1,9 @@
 from mixpanel import Mixpanel
 from . import r
 import json
-import requests
 from flask import current_app as app
-from flask import render_template, make_response, request
+from flask import make_response, request
 import pandas as pd
-
 
 mp = Mixpanel(r.get('mixpanel_api_token'))
 

@@ -2,10 +2,11 @@ from sqlalchemy import Column, Integer, String
 from . import db
 
 
-class Readers(db.Model):
+class Reader(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), index=True, unique=True)
+    name = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
+    gravatar = db.Column(db.String(120), index=False, unique=False)
     # password_hash = db.Column(db.String(128))
     # posts = db.relationship('Post', backref='author', lazy='dynamic')
 

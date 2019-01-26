@@ -6,6 +6,9 @@ from flask import Flask, request, make_response
 from flask import current_app as app
 import sendgrid
 from sendgrid.helpers.mail import Email, Content, Substitution, Mail
+from libgravatar import Gravatar, sanitize_email
+from . import db
+from . import models
 
 
 @app.route("/account/emails/welcome", methods=["POST"])
@@ -42,17 +45,26 @@ def welcome_mailer():
                 return make_response(e.read(), 500)
 
 
-@app.route('/account/create', methods=['POST'])
+def get_gravatar(email):
+    """Encrypt email for gravatar id."""
+    grav = Gravatar(str(email))
+    grav.get_image()
+    return str(grav).encode("utf-8")
+
+
+@app.route('/account/createrecord', methods=['POST'])
 def create_acount():
-    """Prepare  a new user account for the subscriber."""
+    """Prepare a new user account for the subscriber."""
     post_data = request.data
     data_dict = json.loads(post_data)
-    username = data_dict['username']
+    name = data_dict['name']
     email = data_dict['email']
     grav = get_gravatar(email)   # Derive Gravatar from Email
+    user = models.Reader(name, email, grav)
+    session = db.LynxData.open_session()
+    session.add(user)
+    session.commit()
     # Insert DB record
-    new_account = UserAccounts(username, email, grav)
-    new_account.create_account
-    # Welcome via Email
-    welcome_email(email)
-    return new_account.create_account
+    # new_account = UserAccounts(username, email, grav)
+    # new_account.create_account
+    return make_response(user, 200)
