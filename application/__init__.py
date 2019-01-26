@@ -9,7 +9,7 @@ db = SQLAlchemy()
 
 def create_app():
     """Construct the core application."""
-    app = Flask(__name__, instance_relative_config=False)
+    app = Flask(__name__, instance_relative_config=False, )
     app.config.from_object('config.Config')
 
     with app.app_context():
@@ -22,18 +22,24 @@ def create_app():
         r.set('query_like', app.config['QUERY_LIKE'])
 
         # Set global contexts
-        r.set('token', app.config['TOKEN'])
-        r.set('clientid', app.config['CLIENT_ID'])
-        r.set('clientsecret', app.config['CLIENT_SECRET'])
-        r.set('publication', app.config['PUBLICATION'])
-        r.set('medium_endpoint_me', app.config['ME_ENDPOINT'])
+        r.set('medium_token', app.config['MEDIUM_TOKEN'])
+        r.set('medium_clientid', app.config['MEDIUM_CLIENT_ID'])
+        r.set('medium_clientsecret', app.config['MEDIUM_CLIENT_SECRET'])
+        r.set('medium_publication', app.config['MEDIUM_PUBLICATION'])
+        r.set('medium_endpoint_me', app.config['MEDIUM_ME_ENDPOINT'])
+
+        # MIXPANEL
+        r.set('mixpanel_api_key', app.config['MIXPANEL_API_KEY'])
+        r.set('mixpanel_api_secret', app.config['MIXPANEL_API_SECRET'])
+        r.set('mixpanel_api_token', app.config['MIXPANEL_TOKEN'])
 
         # Initialize Global db
         db.init_app(app)
 
         # Construct the data set
-        from . import account
-        from . import syndication
-        from . import links
+        # from . import account
+        # from . import syndication
+        # from . import links
+        from . import analytics
 
         return app

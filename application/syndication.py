@@ -11,9 +11,9 @@ from . import database
 def get_user_details():
     """Get details of current user."""
     endpoint = r.get('medium_endpoint_me')
-    token = r.get('token')
+    token = r.get('medium_token')
     headers = {
-        'Authorization': r.get('token'),
+        'Authorization': r.get('medium_token'),
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         'Accept-Charset': 'utf-8'
@@ -32,8 +32,8 @@ def publish_post():
     title = data_dict['title']
     content = data_dict['content']
     tags = data_dict['tags']
-    token = r.get('token')
-    publication = r.get('publication')
+    token = r.get('medium_token')
+    publication = r.get('medium_publication')
     endpoint = 'https://api.medium.com/v1/publications/' + publication + '/posts'
     headers = {
         'Authorization': token,

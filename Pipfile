@@ -18,8 +18,11 @@ sendgrid = "*"
 python-http-client = "*"
 libgravatar = "*"
 mixpanel_api="*"
+mixpanel="*"
+pandas="*"
 
 [dev-packages]
+python-dotenv="*"
 
 [requires]
 python_version = "3.7.2"

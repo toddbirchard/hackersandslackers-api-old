@@ -34,8 +34,6 @@ class LynxData:
         rows = []
         # Set up engine
         # engine = create_engine(uri, echo=False, strategy='threadlocal', encoding="utf-8", convert_unicode=True)
-        Base = declarative_base()
-        Base.metadata.create_all(engine)
         # Manage Connection
         with engine.connect() as conn:
             try:
@@ -48,16 +46,16 @@ class LynxData:
                 raise
             finally:
                 conn.close()
-                return rows
+            return rows
 
     @classmethod
     def update_post(cls, slug, html):
         """Update post with new previews."""
         Base = declarative_base()
-        Base.metadata.create_all(cls.engine)
-        META_DATA = MetaData(bind=cls.engine, reflect=True)
+        Base.metadata.create_all(cls.open_session())
+        META_DATA = MetaData(bind=cls.open_session(), reflect=True)
         posts = META_DATA.tables['posts']
-        with cls.engine.connect() as conn:
+        with cls.open_session() as conn:
             try:
                 sql = update(posts).where(posts.c.slug == slug).values(html=html, modified=1)
                 results = conn.execution_options(stream_results=True).execute(sql)
