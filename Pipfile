@@ -17,6 +17,7 @@ pytest="*"
 sendgrid = "*"
 python-http-client = "*"
 libgravatar = "*"
+mixpanel_api="*"
 
 [dev-packages]
 
