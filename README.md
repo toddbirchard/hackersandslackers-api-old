@@ -15,10 +15,24 @@
 [![GitHub Stars](https://img.shields.io/github/stars/toddbirchard/hackersandslackers-api.svg?style=flat-square&colorB=e3bb18&colorA=36363e)](https://github.com/toddbirchard/hackersandslackers-api/stargazers)
 [![GitHub Forks](https://img.shields.io/github/forks/toddbirchard/hackersandslackers-api.svg?style=flat-square&colorA=36363e)](https://github.com/toddbirchard/hackersandslackers-api/network)
 
-## Functionality
+## What Is This Thing?
 
-The Hackers and Slackers API is in active development and aimed to serve three purposes: **account creation, auto-publish to Medium,** and **mass link embeds.**
+This is an API serving a Ghost blog: [Hackers and Slackers dot com](https://hackersandslackers.com/). Under the constraints of a blog theme, this API was created to provided additional functionality to an otherwise simple app designed solely to serve content. While still in active development, this project serves a number of purposes:
 
-* **Link embedder:** Scans entire target site for `<a>` tags to be replaced with sophisticated link previews as embedded HTML. Aimed to improve SEO by adding rich content to sites which are link-heavy.
-* **Account creation:** Aimed to simplify the onboarding process as much as possible for end users. Minimal “sign up” form  (currently two fields) accompanied with tasks needed for account creation.
-* **Auto-publish to Medium:** Leverages the Medium Rest API to auto-publish posts from a Ghost blog to a Medium publication.
+### Link Embedder
+* Replaces a given site’s `<a>` with sophisticated link previews as embedded HTML. 
+* Link title, description, and preview image are scraped to improve the site owner’s SEO and user friendliness by adding rich content to sites which are link-heavy.
+* Modifies site content by directly interacting with the site's database. 
+
+### Account creation
+* A collection of features aimed to simplify the sign up processes as much as possible.
+* Infers information about the user to simplify onboarding.
+* Welcomes new users via a Sendgrid mailer.
+
+### Auto Syndication 
+* Automates the syndication of new posts to content platforms lacking this functionality (namely Medium)
+
+### Analytics... stuff.
+* It's complicated.
+
+
