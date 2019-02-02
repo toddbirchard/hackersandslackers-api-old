@@ -3,6 +3,7 @@ from sqlalchemy import Column, Integer, String, MetaData
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from . import r
+import pprint
 
 
 class LynxData:
@@ -28,16 +29,15 @@ class LynxData:
     @classmethod
     def fetch_records(cls):
         """Run any query which is passed."""
-        engine = cls.open_session()
-        META_DATA = MetaData(bind=engine, reflect=True)
+        META_DATA = MetaData(bind=cls.__engine, reflect=True)
         posts = META_DATA.tables['posts']
         rows = []
         # Set up engine
         # engine = create_engine(uri, echo=False, strategy='threadlocal', encoding="utf-8", convert_unicode=True)
         # Manage Connection
-        with engine.connect() as conn:
+        with cls.__engine.connect() as conn:
             try:
-                sql = select([posts.c.slug, posts.c.html]).where(and_(posts.c.title.like('%Lynx%'), posts.c.modified is None)).limit(30)
+                sql = text(cls.__query)
                 results = conn.execution_options(stream_results=True).execute(sql)
                 for row in results:
                     rows.append(dict(row))
@@ -46,6 +46,8 @@ class LynxData:
                 raise
             finally:
                 conn.close()
+            pp = pprint.PrettyPrinter(indent=4)
+            pp.pprint(rows)
             return rows
 
     @classmethod

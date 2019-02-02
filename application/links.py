@@ -10,10 +10,17 @@ from bs4 import BeautifulSoup
 
 def get_alyien_extract(url):
     """Extract using Alyien API."""
-    client = textapi.Client(r.get('aylien_app_id'), r.get('aylien_app_key'))
-    extraction = client.Extract(url=url)
-    print(extraction)
-    return extraction
+    headers = {
+        'X-AYLIEN-TextAPI-Application-Key': r.get('aylien_app_key'),
+        'X-AYLIEN-TextAPI-Application-ID': r.get('aylien_app_id')
+    }
+    params = {
+        'url': url
+    }
+    base_url = 'https://api.aylien.com/api/v1/extract'
+    req = requests.get(base_url, headers=headers, params=params)
+    print(req.json)
+    return req.json
 
 
 def make_preview(link):
@@ -59,6 +66,8 @@ def get_links(url):
 @app.route('/lynx', methods=['GET', 'POST'])
 def entry():
     """App Entry Point."""
+    print('HERP', r.get('aylien_app_id'))
+    print('DERP', r.get('aylien_app_key'))
     headers = {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'Content-Type',
@@ -75,8 +84,8 @@ def entry():
         page_html = ''.join(str(x) for x in link_embeds)
         print('page_html = ', page_html)
         post_database.update_post(uri, post['slug'], page_html)
-        # preview_html = previews.make_preview(post)
-        # print('postpreview = ', preview_html)
+        preview_html = make_preview(post)
+        print('postpreview = ', preview_html)
     return render_template('layout.html')
 
 
