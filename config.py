@@ -45,3 +45,7 @@ class Config:
     MIXPANEL_API_KEY = os.environ['MIXPANEL_API_KEY']
     MIXPANEL_API_SECRET = os.environ['MIXPANEL_API_SECRET']
     MIXPANEL_TOKEN = os.environ['MIXPANEL_TOKEN']
+
+    # Aylien
+    AYLIEN_APP_KEY = os.environ['MIXPANEL_API_KEY']
+    AYLIEN_APP_ID = os.environ['AYLIEN_APP_ID']

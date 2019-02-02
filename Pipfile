@@ -20,6 +20,7 @@ libgravatar = "*"
 mixpanel_api="*"
 mixpanel="*"
 pandas="*"
+aylien-apiclient="*"
 
 [dev-packages]
 python-dotenv="*"

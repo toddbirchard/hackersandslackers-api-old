@@ -2,7 +2,7 @@ import json
 import sys
 import requests
 from bs4 import BeautifulSoup
-from . import r
+from aylienapiclient import textapi
 
 
 def previews(bodyhtml):
@@ -58,7 +58,8 @@ def get_links(url):
     link_arr = []
     for tag in tags:
         link = endpoint + tag.get('href')
-        preview_json = get_json(link)
+        # preview_json = get_json(link)
+        preview_json = get_alyien_extract(link)
         preview_embed = make_preview(preview_json)
         link_arr.append(preview_embed)
     print('link_arr = ', link_arr)

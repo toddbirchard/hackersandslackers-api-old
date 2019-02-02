@@ -33,14 +33,19 @@ def create_app():
         r.set('mixpanel_api_secret', app.config['MIXPANEL_API_SECRET'])
         r.set('mixpanel_api_token', app.config['MIXPANEL_TOKEN'])
 
+        # Aylien
+        r.set('aylien_app_key', app.config['AYLIEN_APP_KEY'])
+        r.set('aylien_app_id', app.config['AYLIEN_APP_ID'])
+
         # Initialize Global db
         db.init_app(app)
 
         # Construct the data set
+        from . import database
         from . import models
         from . import account
         from . import syndication
-        # from . import links
+        from . import links
         from . import analytics
 
         return app

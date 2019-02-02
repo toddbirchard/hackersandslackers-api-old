@@ -26,7 +26,7 @@ class LynxData:
         return session
 
     @classmethod
-    def fetch_records(cls, uri, query, query_like):
+    def fetch_records(cls):
         """Run any query which is passed."""
         engine = cls.open_session()
         META_DATA = MetaData(bind=engine, reflect=True)
