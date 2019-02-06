@@ -112,7 +112,7 @@ def get_links(url):
     return link_arr
 
 
-@app.route('/linkembed', methods=['GET', 'POST'])
+@linkembed_blueprint.route('/linkembed', methods=['GET', 'POST'])
 def linkembed():
     """Link embed entry point."""
     uri = r.get('uri')
