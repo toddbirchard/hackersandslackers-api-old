@@ -3,11 +3,13 @@ import pprint
 from datetime import datetime as dt
 import requests
 from bs4 import BeautifulSoup
-from flask import request, make_response, render_template
+from flask import Blueprint, request, make_response, render_template
 from flask import current_app as app
 from . import r
 from . import db
 from . import database
+
+linkembed_blueprint = Blueprint('linkembed', __name__)
 
 
 def sanitize_data(obj):

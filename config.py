@@ -36,12 +36,12 @@ class Config:
     MEDIUM_PUBLICATION = os.environ['MEDIUM_PUBLICATION']
     MEDIUM_ME_ENDPOINT = os.environ['MEDIUM_ME_ENDPOINT']
 
-    # SendGridAPIClient
+    # Sendgrid
     SENDGRID_API_KEY = os.environ['SENDGRID_API_KEY']
     SENDGRID_FROM_EMAIL = os.environ['SENDGRID_FROM_EMAIL']
     SENDGRID_TEMPLATE_ID = os.environ['SENDGRID_TEMPLATE_ID']
 
-    # MIXPANEL
+    # Mixpanel
     MIXPANEL_API_KEY = os.environ['MIXPANEL_API_KEY']
     MIXPANEL_API_SECRET = os.environ['MIXPANEL_API_SECRET']
     MIXPANEL_TOKEN = os.environ['MIXPANEL_TOKEN']

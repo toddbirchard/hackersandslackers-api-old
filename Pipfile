@@ -6,7 +6,6 @@ name = "pypi"
 [packages]
 pymysql="*"
 requests="*"
-configparser="*"
 Flask="*"
 bs4="*"
 Flask-SQLAlchemy = "*"
@@ -14,15 +13,14 @@ Flask-redis="*"
 sqlalchemy="*"
 sendgrid = "*"
 python-http-client = "*"
-libgravatar = "*"
 Flask-Gravatar="*"
 mixpanel_api="*"
 mixpanel="*"
 pandas="*"
-aylien-apiclient="*"
 
 [dev-packages]
 python-dotenv="*"
+pylama="*"
 
 [requires]
 python_version = "3.7.2"

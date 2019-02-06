@@ -2,14 +2,15 @@ import os
 import sys
 import json
 import urllib.request as urllib
-from flask import Flask, request, make_response
+from flask import Flask, Blueprint, request, make_response
 from flask import current_app as app
 import sendgrid
 from sendgrid.helpers.mail import Email, Content, Substitution, Mail
-from libgravatar import Gravatar, sanitize_email
 from . import db
 from . import models
 
+
+accounts_blueprint = Blueprint('accounts', __name__)
 
 @app.route("/account/emails/welcome", methods=["POST"])
 def welcome_mailer():
