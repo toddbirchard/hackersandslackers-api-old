@@ -1,13 +1,13 @@
+import json
+import pprint
+from datetime import datetime as dt
+import requests
+from bs4 import BeautifulSoup
 from flask import request, make_response, render_template
 from flask import current_app as app
 from . import r
 from . import db
 from . import database
-import requests
-from bs4 import BeautifulSoup
-import json
-import pprint
-from datetime import datetime as dt
 
 
 def sanitize_data(obj):
