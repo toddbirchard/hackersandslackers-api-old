@@ -33,7 +33,7 @@ def welcome_mailer():
             mail.template_id = os.environ["TEMPLATE_ID"]
             try:
                 response = sg.client.mail.send.post(request_body=mail.get())
-                return make_response('it worked?', 200)
+                return make_response('it worked?', 200, headers=headers)
             except urllib.HTTPError as e:
                 print(e.read())
                 sys.stdout.flush()

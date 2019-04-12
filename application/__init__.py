@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, make_response
 from flask_sqlalchemy import SQLAlchemy
 from flask_redis import FlaskRedis
 
@@ -8,7 +8,11 @@ db = SQLAlchemy()
 
 def create_app():
     """Construct the core application."""
-    app = Flask(__name__, instance_relative_config=False)
+    app = Flask(__name__,
+                instance_relative_config=False,
+                template_folder="templates",
+                static_folder="static"
+                )
     app.config.from_object('config.Config')
 
     with app.app_context():
