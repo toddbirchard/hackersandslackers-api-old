@@ -2,13 +2,15 @@ from mixpanel import Mixpanel
 from . import r
 import json
 from flask import current_app as app
-from flask import make_response, request
+from flask import Blueprint, make_response, request
 import pandas as pd
 
+
+analytics_blueprint = Blueprint('analytics', __name__)
 mp = Mixpanel(r.get('mixpanel_api_token'))
 
 
-@app.route('/mixpanel/newaccount', methods=['GET', 'POST'])
+@analytics_blueprint.route('/mixpanel/newaccount', methods=['GET', 'POST'])
 def mixpanel_new_account():
     """Create a new person in mixpanel."""
     post_data = request.data
@@ -19,7 +21,7 @@ def mixpanel_new_account():
     return make_response(str(email), 200)
 
 
-@app.route('/mixpanel/deleteaccounts', methods=['GET'])
+@analytics_blueprint.route('/mixpanel/deleteaccounts', methods=['GET'])
 def mixpanel_delete_account():
     """Publish post to medium."""
     users_df = pd.read_csv('data/people.csv')

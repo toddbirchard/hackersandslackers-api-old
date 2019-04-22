@@ -1,12 +1,15 @@
 import json
 import requests
+from flask import Blueprint, render_template, make_response, request
 from flask import current_app as app
-from flask import render_template, make_response, request
 from . import r
 from . import db
 
 
-@app.route('/medium/me', methods=['GET'])
+syndication_blueprint = Blueprint('syndication', __name__)
+
+
+@syndication_blueprint.route('/medium/me', methods=['GET'])
 def get_user_details():
     """Get details of current user."""
     endpoint = r.get('medium_endpoint_me')
@@ -23,7 +26,7 @@ def get_user_details():
     return make_response(response, 200)
 
 
-@app.route('/medium/publish', methods=['POST'])
+@syndication_blueprint.route('/medium/publish', methods=['POST'])
 def publish_post():
     """Publish post to medium."""
     post_data = request.data

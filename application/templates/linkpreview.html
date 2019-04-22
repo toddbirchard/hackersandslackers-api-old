@@ -1,0 +1,20 @@
+<div class="link-preview">
+  <a href="{{ data.url }}">
+    <div class="link-info">
+      {% if data.image %}
+      <div class="link-preview-image">
+        <img src="{{ data.image }}">
+      </div>
+      {% endif %}
+      <div class="detail-stack">
+        <h4 class="title-desktop">{{ data.title }}</h4>
+        {% if data.image %}
+          <p class="author">{{ data.author }}</p>
+        {% endif %}
+        <p>{{ data.summary }}</p>
+        <h4 class="title-mobile">{{ data.title }}</h4>
+        <span class="url-info"><i class="far fa-link"></i>{{ data.url }}</span>
+      </div>
+    </div>
+  </a>
+</div>
