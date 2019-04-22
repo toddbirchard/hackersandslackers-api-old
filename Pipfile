@@ -4,26 +4,24 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-pymysql="*"
-requests="*"
-configparser="*"
-Flask="*"
-bs4="*"
+pymysql = "*"
+requests = "*"
+configparser = "*"
+Flask = "*"
+bs4 = "*"
 Flask-SQLAlchemy = "*"
-Flask-redis="*"
-sqlalchemy="*"
-gunicorn="*"
-pytest="*"
+Flask-redis = "*"
+sqlalchemy = "*"
 sendgrid = "*"
 python-http-client = "*"
 libgravatar = "*"
-mixpanel_api="*"
-mixpanel="*"
-pandas="*"
-aylien-apiclient="*"
+mixpanel_api = "*"
+mixpanel = "*"
+pandas = "*"
+aylien-apiclient = "*"
 
 [dev-packages]
-python-dotenv="*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.7.2"
